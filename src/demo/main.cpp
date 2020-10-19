@@ -7,6 +7,11 @@
 
 
 
+/////////////////////////////////////////////////////////////////////////////
+// unit test
+/////////////////////////////////////////////////////////////////////////////
+
+
 // test the functionality of nodes
 //		should contain a value and a list of in/out neighbors
 int test_node() {
@@ -158,17 +163,15 @@ int test_dfs() {
 	G.add_node(&foo);
 	//G.draw();
 
-	Graph G_tree = DFS(&G);
+	std::vector<Node*> parents = DFS(&G);
 	//G_tree.draw();
-
-	int i = 0;
 
 	try
 	{
-		for (auto& n : G.get_nodes()) {
-			if (n != G_tree.get_nodes()[i]) { throw i; }
-			i += 1;
-		}
+		if (parents[0] != parents[parents.size() - 1]) { throw 0; }
+		if (parents[get_index(G.get_nodes(), &m)] != &n) { throw 1; }
+		if (parents[get_index(G.get_nodes(), &l)] != &m) { throw 2; }
+		if (parents[get_index(G.get_nodes(), &o)] != &l) { throw 3; }
 	}
 	catch (int e)
 	{
@@ -244,10 +247,55 @@ int test_bfs() {
 }
 
 
+/////////////////////////////////////////////////////////////////////////////
+// Demos
+/////////////////////////////////////////////////////////////////////////////
 
 
 void demo_dfs() {
 
+	std::cout << "@@@  DFS Demo  @@@" << std::endl;
+
+	Graph G;
+
+	Node a = Node::Node(0);
+	Node b = Node::Node(1);
+	Node c = Node::Node(2);
+	Node d = Node::Node(3);
+	Node e = Node::Node(4);
+	Node f = Node::Node(5);
+	Node g = Node::Node(6);
+	Node h = Node::Node(7);
+
+	G.add_edge(&a, &e);
+	G.add_edge(&b, &a);
+	G.add_edge(&b, &c);
+	G.add_edge(&c, &a);
+	G.add_edge(&c, &g);
+	G.add_edge(&d, &f);
+	G.add_edge(&f, &g);
+	G.add_edge(&f, &h);
+	G.add_edge(&g, &e);
+
+
+	std::cout << "G's adjacency list : " << std::endl;
+	G.draw();
+	std::vector<Node*> parents = DFS(&G);
+	std::vector<Node*> nodes = G.get_nodes();
+
+	std::cout << std::endl;
+	std::cout << "DFS result : " << std::endl;
+	std::cout << "Node ~~~ Parent" << std::endl;
+
+	for (int i = 0; i < parents.size(); i++) {
+		std::cout << (*nodes[i]).get_val() << "~~~" << std::flush;
+		if ( parents[i] != nullptr ) {
+			std::cout << (*parents[i]).get_val() << std::endl;
+		}
+		else {
+			std::cout << "null" << std::endl;
+		}
+	}
 };
 
 
@@ -275,8 +323,10 @@ int main() {
 	catch (int e)
 	{
 		std::cout << "Number of failed tests : " << e << std::endl;
+		return 1;
 	}
 
+	demo_dfs();
 	return 0;
 
 }

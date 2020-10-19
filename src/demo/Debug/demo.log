@@ -1,1 +1,3 @@
-﻿  demo.vcxproj -> C:\Users\ipjenkins\Desktop\graph_alg_study\src\Debug\demo.exe
+﻿  main.cpp
+C:\Users\ipjenkins\Desktop\graph_alg_study\src\demo\main.cpp(290,20): warning C4018: '<': signed/unsigned mismatch
+  demo.vcxproj -> C:\Users\ipjenkins\Desktop\graph_alg_study\src\Debug\demo.exe

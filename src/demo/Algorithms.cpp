@@ -53,29 +53,33 @@ bool st_connectivity(Graph* G, Node* u, Node* v) {
 
 // recursively search the graph for a node
 //		subroutine for DFS
-void DFS_visit(Graph* DFS_tree, Node* u) {
+void DFS_visit(Graph* G, std::vector<Node*>* parents, Node* u) {
 	//std::cout << " DFS visiting node : " << (*u).get_val() << std::endl;
 	(*u).set_color(false);
 	for (auto& v : (*u).get_out_neighbors()) {
-		(*DFS_tree).add_edge(u, v);
-		DFS_visit(DFS_tree, v);
+		if( (*v).get_color() ){
+			(*parents)[get_index( (*G).get_nodes() , v )] = u;
+			DFS_visit(G, parents, v);
+		}
 	}
 };
 
 
 // main call to run depth first search
-//		should probably return a DFS tree ... std::vector<Node*>
-Graph DFS(Graph* G) {
-	Graph DFS_tree;
+//		should probably return PARENT RELATIONS... std::vector<Node*>
+std::vector<Node*> DFS(Graph* G) {
+	std::vector<Node*> parents((*G).get_nodes().size());
 	for (auto& n : (*G).get_nodes()) {
 		if ((*n).get_color()) {
-			DFS_tree.add_node(n);
-			DFS_visit(&DFS_tree , n);
+			DFS_visit(G, &parents, n);
 		}
 	}
 	(*G).reset_node_colors();
-	return DFS_tree;
+	return parents;
 }
+
+
+
 
 
 

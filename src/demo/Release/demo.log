@@ -1,0 +1,9 @@
+﻿  Algorithms.cpp
+  Graph.cpp
+  main.cpp
+C:\Users\ipjenkins\Desktop\graph_alg_study\src\demo\main.cpp(290,20): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 292 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  demo.vcxproj -> C:\Users\ipjenkins\Desktop\graph_alg_study\src\Release\demo.exe
