@@ -289,16 +289,68 @@ void demo_dfs() {
 
 	for (int i = 0; i < parents.size(); i++) {
 		std::cout << (*nodes[i]).get_val() << "~~~" << std::flush;
-		if ( parents[i] != nullptr ) {
+		if (parents[i] != nullptr) {
 			std::cout << (*parents[i]).get_val() << std::endl;
 		}
 		else {
 			std::cout << "null" << std::endl;
 		}
 	}
+
+	std::cout << std::endl;
+
 };
 
 
+
+
+
+void demo_bfs() {
+
+	std::cout << "@@@  BFS Demo  @@@" << std::endl;
+
+	Graph G;
+
+	Node a = Node::Node(0);
+	Node b = Node::Node(1);
+	Node c = Node::Node(2);
+	Node d = Node::Node(3);
+	Node e = Node::Node(4);
+	Node f = Node::Node(5);
+	Node g = Node::Node(6);
+	Node h = Node::Node(7);
+
+	G.add_edge(&a, &e);
+	G.add_edge(&b, &a);
+	G.add_edge(&b, &c);
+	G.add_edge(&c, &a);
+	G.add_edge(&c, &g);
+	G.add_edge(&d, &f);
+	G.add_edge(&f, &g);
+	G.add_edge(&f, &h);
+	G.add_edge(&g, &e);
+
+	std::cout << "G's adjacency list : " << std::endl;
+	G.draw();
+
+	std::cout << std::endl;
+	std::cout << "G's BFS Tree starting from 0: " << std::endl;
+	Graph bfs_tree_a = BFS(&G, &a);
+	bfs_tree_a.draw();
+
+	std::cout << std::endl;
+	std::cout << "G's BFS Tree starting from 1: " << std::endl;
+	Graph bfs_tree_b = BFS(&G, &b);
+	bfs_tree_b.draw();
+
+};
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Main 
+/////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -327,6 +379,7 @@ int main() {
 	}
 
 	demo_dfs();
+	demo_bfs();
 	return 0;
 
 }
