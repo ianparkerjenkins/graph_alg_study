@@ -87,6 +87,15 @@ void Graph::reset_node_colors(){
 ////////////////////////////////////////////////////////////////////////
 
 
+// add an edge like a normal graph, but also add it to the map of weights 
+//template <class T>
+//void WeightedGraph<T>::add_edge(Node* from, Node* to, T weight)
+
+// get the weight of an edge from u to v 
+//template <class T>
+//T  WeightedGraph<T>::get_edge_weight(Node* from, Node* to)
+
+
 
 
 // add weighted edge 
@@ -107,28 +116,28 @@ void Graph::reset_node_colors(){
 //}
 
 
-void WeightedGraph::add_edge(WeightedEdge* e) {
-	Node* from = (*e).get_parent();
-	Node* to = (*e).get_child();
-	if (!is_node_in_graph(from)) {
-		add_node(from);
-	}
-	if (!is_node_in_graph(to)) {
-		add_node(to);
-	}
-	if (!is_edge_in_graph(from, to)) {
-		(*from).add_out_neighbor(to);
-		(*to).add_in_neighbor(from);
-		edges.push_back(e);
-	}
-}
+//void WeightedGraph::add_edge(WeightedEdge* e) {
+//	Node* from = (*e).get_parent();
+//	Node* to = (*e).get_child();
+//	if (!is_node_in_graph(from)) {
+//		add_node(from);
+//	}
+//	if (!is_node_in_graph(to)) {
+//		add_node(to);
+//	}
+//	if (!is_edge_in_graph(from, to)) {
+//		(*from).add_out_neighbor(to);
+//		(*to).add_in_neighbor(from);
+//		edges.push_back(e);
+//	}
+//}
 
 
 
 // print out all edges with weights
-void WeightedGraph::draw() {
-	for (auto& e : edges) {
-		std::cout << (*(*e).get_parent()).get_val() << "  --"  << (*e).get_weight() << "-->  " << std::flush;
-		std::cout << (*(*e).get_child()).get_val()  <<  std::endl;
-	}
-}
+//void WeightedGraph::draw() {
+//	for (auto& e : edges) {
+//		std::cout << (*(*e).get_parent()).get_val() << "  --"  << (*e).get_weight() << "-->  " << std::flush;
+//		std::cout << (*(*e).get_child()).get_val()  <<  std::endl;
+//	}
+//}

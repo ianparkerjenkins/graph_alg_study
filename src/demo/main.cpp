@@ -188,17 +188,22 @@ int test_weighted_graph() {
 	Node n = Node::Node(1.0);
 	Node m = Node::Node(2.0);
 	Node l = Node::Node(3.0);
-	WeightedGraph WG;
-	WeightedEdge e1 = WeightedEdge::WeightedEdge(&n, &m, 10.0);
-	WeightedEdge e2 = WeightedEdge::WeightedEdge(&m, &l, 11.0);
-	WG.add_edge(&e1);
-	WG.add_edge(&e2);
+	WeightedGraph<double> WG;
+	//WeightedEdge e1 = WeightedEdge::WeightedEdge(&n, &m, 10.0);
+	//WeightedEdge e2 = WeightedEdge::WeightedEdge(&m, &l, 11.0);
+	//WG.add_edge(&e1);
+	//WG.add_edge(&e2);
 	//WG.draw();
 
+	WG.add_edge(&n, &m, 10.0);
+	WG.add_edge(&m, &l, 11.0);
+	
 	try
 	{
-		if ((*WG.get_edges()[0]).get_weight() != 10.0) { throw 0; }
-		if ((*WG.get_edges()[1]).get_weight() != 11.0) { throw 1; }
+		//if ((*WG.get_edges()[0]).get_weight() != 10.0) { throw 0; }
+		//if ((*WG.get_edges()[1]).get_weight() != 11.0) { throw 1; }
+		if (WG.get_edge_weight(&n, &m) != 10.0) { throw 0; }
+		if (WG.get_edge_weight(&m, &l) != 11.0) { throw 0; }
 		if (n.get_out_neighbors()[0] != &m) { throw 2; }
 		if (m.get_out_neighbors()[0] != &l) { throw 3; }
 		if (l.get_in_neighbors()[0] != &m) { throw 4; }
@@ -287,7 +292,7 @@ void demo_dfs() {
 	std::cout << "DFS result : " << std::endl;
 	std::cout << "Node ~~~ Parent" << std::endl;
 
-	for (int i = 0; i < parents.size(); i++) {
+	for (unsigned int i = 0; i < parents.size(); i++) {
 		std::cout << (*nodes[i]).get_val() << "~~~" << std::flush;
 		if (parents[i] != nullptr) {
 			std::cout << (*parents[i]).get_val() << std::endl;

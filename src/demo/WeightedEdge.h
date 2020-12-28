@@ -1,6 +1,12 @@
 #pragma once
 #include "Node.h"
 
+
+// !!!!!!!!!!!!!!!!!!!1
+// OBE
+// !!!!!!!!!!!!!!!!!!!1
+
+
 class WeightedEdge {
 
 public :
@@ -19,7 +25,7 @@ public :
 
 private : 
 
-	double weight{ 0 };
+	double weight{ 0 }; // TODO : Template type the weight
 	Node* parent;
 	Node* child;
 
