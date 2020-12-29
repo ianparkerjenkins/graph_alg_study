@@ -1,7 +1,6 @@
 
 #include<iostream>
 #include<vector>
-//#include "Graph.h"
 #include "Algorithms.h"
 
 
@@ -176,6 +175,7 @@ int test_dfs() {
 	catch (int e)
 	{
 		std::cout << "The DFS tree should be the same as the originial graph for this test : " << e << std::endl;
+		return 1;
 	}
 
 
@@ -212,6 +212,7 @@ int test_weighted_graph() {
 	catch (int e)
 	{
 		std::cout << "something doesn't seem right with test : " << e << std::endl;
+		return 1;
 	}
 
 	return 0;
@@ -246,10 +247,84 @@ int test_bfs() {
 	catch (int e)
 	{
 		std::cout << "The BFS tree should be the same as the originial graph for this test : " << e << std::endl;
+		return 1;
 	}
 
 	return 0;
 }
+
+
+
+int test_prims() {
+
+	Node a = Node::Node(0.0);
+	Node b = Node::Node(1.0);
+	Node c = Node::Node(2.0);
+	Node d = Node::Node(3.0);
+	Node e = Node::Node(4.0);
+	Node f = Node::Node(5.0);
+	Node g = Node::Node(6.0);
+	Node h = Node::Node(7.0);
+	Node i = Node::Node(8.0);
+
+	WeightedGraph<int> G;
+
+	G.add_edge(&a, &b, 4);
+	G.add_edge(&a, &h, 8);
+	
+	G.add_edge(&b, &a, 4);
+	G.add_edge(&b, &h, 11);
+	G.add_edge(&b, &c, 8);
+	
+	G.add_edge(&c, &i, 2);
+	G.add_edge(&c, &b, 8);
+	G.add_edge(&c, &f, 4);
+	G.add_edge(&c, &d, 7);
+
+	G.add_edge(&d, &c, 7);
+	G.add_edge(&d, &f, 14);
+	G.add_edge(&d, &e, 9);
+
+	G.add_edge(&e, &d, 9);
+	G.add_edge(&e, &f, 10);
+
+	G.add_edge(&f, &e, 10);
+	G.add_edge(&f, &d, 14);
+	G.add_edge(&f, &c, 4);
+	G.add_edge(&f, &g, 2);
+
+	G.add_edge(&g, &f, 2);
+	G.add_edge(&g, &i, 6);
+	G.add_edge(&g, &h, 1);
+
+	G.add_edge(&h, &g, 1);
+	G.add_edge(&h, &i, 7);
+	G.add_edge(&h, &a, 8);
+	G.add_edge(&h, &b, 11);
+
+	G.add_edge(&i, &h, 7);
+	G.add_edge(&i, &g, 6);
+	G.add_edge(&i, &c, 2);
+
+	Prim_MST(&G, &a);
+	//WeightedGraph<int> MST = Prim_MST(&G, &a);
+
+	int foo = 0;
+
+	try
+	{
+		if (true) { throw foo; }
+	}
+	catch (int e)
+	{
+		std::cout << "Prim's failed this test : " << e << std::endl;
+		return 1; 
+	}
+
+	return 0;
+}
+
+
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -374,8 +449,9 @@ int main() {
 		test += test_st_con();
 		test += test_dfs();
 		test += test_bfs();
+		//test += test_prims(); // something isn't right with my min heap for this algorithm ... 
 
-		if (test) { throw test; }
+		if (test > 0 ) { throw test; }
 	}
 	catch (int e)
 	{
