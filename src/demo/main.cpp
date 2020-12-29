@@ -449,7 +449,7 @@ int main() {
 		test += test_st_con();
 		test += test_dfs();
 		test += test_bfs();
-		//test += test_prims(); // something isn't right with my min heap for this algorithm ... 
+		test += test_prims(); // something isn't right with my min heap for this algorithm ... 
 
 		if (test > 0 ) { throw test; }
 	}
