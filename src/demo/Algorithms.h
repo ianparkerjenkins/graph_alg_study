@@ -28,40 +28,40 @@ Graph BFS(Graph* G, Node* start);
 // Weighted graph algs 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
 // used for making a min heap of nodes --> relates a node to its adjacent edge with the smallest weight
 typedef std::pair<Node*, int> NodeEdgePair; // https://www.geeksforgeeks.org/prims-algorithm-using-priority_queue-stl/ had to check this out to fix my min heap ... RIP 
+// needs to be templated :(
 
 
-// Prim's 
-// TODO : something isn't right with the min heap here ... 
+
+// Prim's MST algorithm 
+// TODO : figure out how to get the templating right ... Ideally wouldn't have this implemented in the headers file
 //
-// also need to figure out how to get the templating right ... Ideally wouldn't have this implemented in the headers file
+// also still need to reconstruct the MST weighted graph from the parent relations 
 //
-// ALSO need to reconstruct the MST weighted graph from the parent relations 
+// maybe figure out a better way to set initial min weights to inf
 //
 template <class T>
+//using NodeEdgePair = std::pair<Node*, T>;
 //WeightedGraph<T> Prim_MST(WeightedGraph<T>* G, Node* root) {
 void Prim_MST(WeightedGraph<T>* G, Node* root) {
 
-	//WeightedGraph<T> MST;
+	WeightedGraph<T> MST;
 	std::map<Node*, T> min_weight;
 	std::map<Node*, Node*> parent;
 
-	// fill a queue with all the nodes in the graph; maintain a dictionary of the min edge weight for each node 
+
 	std::set<Node*> s; // no find in priority queue so have to also maintain a set that represents the nodes not contained in the MST :(
-	//auto cmp = [&](Node* u, Node* v) { return min_weight[u] > min_weight[v]; };
-	//std::priority_queue<Node*, std::vector<Node*>, decltype(cmp)> q(cmp); // min heap of weights for each node 
 	std::priority_queue< NodeEdgePair, std::vector <NodeEdgePair>, std::greater<NodeEdgePair> > min_heap;
 	for (auto& n : (*G).get_nodes()) {
 		min_weight[n] = 1e6; // not sure the best way to do infinity, but this is a little hacky
 		parent[n] = nullptr;
-		//q.push(n);
-		s.insert(n); // nothing starts in the MST
+		s.insert(n); // no nodes start in the MST
 	};
 
 
-
-	// while the queue isn't empty, inspect adjacencies of current node and add the cheapest edge to the output graph
 	min_heap.push(std::make_pair(root, 0));
 	min_weight[root] = 0;
 	while (!min_heap.empty()) {
@@ -70,8 +70,7 @@ void Prim_MST(WeightedGraph<T>* G, Node* root) {
 		s.erase(u);
 		for (auto& v : (*u).get_out_neighbors()) {
 			T w = G->get_edge_weight(u, v);
-			//std::cout << (s.find(v) != s.end()) << " & " << w << " ? " << min_weight[v] << std::endl;
-			if (  (s.find(v) != s.end()) and (w < min_weight[v])  ) { // not finding things in the set or map???
+			if (  (s.find(v) != s.end()) and (w < min_weight[v])  ) { 
 				std::cout << (*u).get_val() << std::endl;
 				min_weight[v] = w;
 				parent[v] = u;
