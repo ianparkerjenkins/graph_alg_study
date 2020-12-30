@@ -1,9 +1,11 @@
-﻿  main.cpp
+﻿  Algorithms.cpp
+  Graph.cpp
+  main.cpp
 C:\Users\ipjenkins\Desktop\graph_alg_study\src\demo\Algorithms.h(59,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 C:\Users\ipjenkins\Desktop\graph_alg_study\src\demo\main.cpp(309): message : see reference to function template instantiation 'WeightedGraph<int> Prim_MST<int>(WeightedGraph<int> *,Node *)' being compiled
   Generating code
-  2 of 407 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+  0 of 444 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    15 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   demo.vcxproj -> C:\Users\ipjenkins\Desktop\graph_alg_study\src\Release\demo.exe

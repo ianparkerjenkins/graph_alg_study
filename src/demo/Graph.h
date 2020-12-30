@@ -9,6 +9,8 @@
 #include <queue>
 #include <iostream>
 #include "Node.h"
+//#include "WeightedEdge.h"
+
 
 class Graph {
 
@@ -58,8 +60,38 @@ private:
 
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// weighted graph classes
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+class WeightedEdge {
+
+public:
+
+	WeightedEdge(Node* from, Node* to, double w_) : parent(from), child(to), weight(w_) {};
+
+	// setters 
+	void set_weight(double w_) { weight = w_; };
+	void set_parent(Node* p_) { parent = p_; };
+	void set_child(Node* c_) { child = c_; };
+
+	// getters 
+	double get_weight() { return weight; };
+	Node* get_parent() { return parent; };
+	Node* get_child() { return child; };
+
+private:
+
+	double weight{ 0 }; // TODO : Template type the weight
+	Node* parent;
+	Node* child;
+
+};
+
+// template for the datatype of the weights, maybe this is overkill ... 
 template <class T> // all weights for a graph must be of the same type... that sounds fairly reasonable
+
 class WeightedGraph : public Graph {
 
 public:
@@ -75,6 +107,8 @@ public:
 			(*from).add_out_neighbor(to);
 			(*to).add_in_neighbor(from);
 			weights[from][to] = weight;
+			WeightedEdge e = WeightedEdge::WeightedEdge(from, to, weight);
+			edges.push_back(&e);
 		}
 	};
 
@@ -98,7 +132,11 @@ public:
 	};
 
 
+	std::vector<WeightedEdge*> get_edges() { return edges; };
+
+
 private:
+	std::vector<WeightedEdge*> edges; // some algs may want to get through or sort all edges in the graph, so making this for conviniece 
 	std::map< Node*, std::map< Node*, T > >  weights;
 
 };
