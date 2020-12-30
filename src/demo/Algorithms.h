@@ -45,8 +45,8 @@ typedef std::pair<Node*, int> NodeEdgePair; // https://www.geeksforgeeks.org/pri
 //
 template <class T>
 //using NodeEdgePair = std::pair<Node*, T>;
-//WeightedGraph<T> Prim_MST(WeightedGraph<T>* G, Node* root) {
-void Prim_MST(WeightedGraph<T>* G, Node* root) {
+WeightedGraph<T> Prim_MST(WeightedGraph<T>* G, Node* root) {
+//void Prim_MST(WeightedGraph<T>* G, Node* root) {
 
 	WeightedGraph<T> MST;
 	std::map<Node*, T> min_weight;
@@ -71,30 +71,36 @@ void Prim_MST(WeightedGraph<T>* G, Node* root) {
 		for (auto& v : (*u).get_out_neighbors()) {
 			T w = G->get_edge_weight(u, v);
 			if (  (s.find(v) != s.end()) and (w < min_weight[v])  ) { 
-				std::cout << (*u).get_val() << std::endl;
 				min_weight[v] = w;
 				parent[v] = u;
+				//if ((*u).get_val() == 2.0) { std::cout << (*(parent[v])).get_val() << "<-" << min_weight[v] << "->" << (*v).get_val() << std::endl; };
+				//if ((*u).get_val() == 6.0) { std::cout << (*(parent[v])).get_val() << "<-" << min_weight[v] << "->" << (*v).get_val() << std::endl; };
 				min_heap.push(std::make_pair(v, min_weight[v]));
 			}
 		}
 	}
 
 
-	// JUST FOR NOW PRINT OUT THE PARENT RESULTS
+	// print result
 	for (auto& n : (*G).get_nodes()) {
 		if (parent[n] != nullptr){ 
-			std::cout << (*n).get_val() << "----" << (*(parent[n])).get_val() << std::endl;
+			std::cout << (*n).get_val() << "<----" << (*(parent[n])).get_val() << std::endl;
 		}
 		else {
-			std::cout << (*n).get_val() << "----" << "null" << std::endl;
+			std::cout << (*n).get_val() << "<----" << "null" << std::endl;
 		}
 	};
 
-
+	// TODO : Fix this part ... not sure that this is the actual way to do this
 	// construct the MST from the parent relationships
+	for (auto& n : (*G).get_nodes()) {
+		if (parent[n] != nullptr) {
+			MST.add_edge(parent[n], n, min_weight[n]);
+			MST.add_edge(n, parent[n], min_weight[n]);
+		}
+	};
 
-
-	//return MST;
+	return MST;
 };
 
 
