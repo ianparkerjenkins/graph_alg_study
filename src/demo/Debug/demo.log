@@ -1,3 +1,8 @@
-﻿  main.cpp
-C:\Users\ipjenkins\Desktop\graph_alg_study\src\demo\main.cpp(290,20): warning C4018: '<': signed/unsigned mismatch
+﻿  Algorithms.cpp
+C:\Users\ipjenkins\Desktop\graph_alg_study\src\demo\Algorithms.cpp(157,29): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+  Graph.cpp
+  main.cpp
+C:\Users\ipjenkins\Desktop\graph_alg_study\src\demo\Algorithms.h(60,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\ipjenkins\Desktop\graph_alg_study\src\demo\main.cpp(309): message : see reference to function template instantiation 'WeightedGraph<int> Prim_MST<int>(WeightedGraph<int> *,Node *)' being compiled
+  Generating Code...
   demo.vcxproj -> C:\Users\ipjenkins\Desktop\graph_alg_study\src\Debug\demo.exe

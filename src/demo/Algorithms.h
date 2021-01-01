@@ -45,6 +45,7 @@ typedef std::pair<Node*, int> NodeEdgePair; // https://www.geeksforgeeks.org/pri
 //
 template <class T>
 //using NodeEdgePair = std::pair<Node*, T>;
+// TODO : untemplate this ... I think the weights may have to be unsigned so might as well make them unsigned ints
 WeightedGraph<T> Prim_MST(WeightedGraph<T>* G, Node* root) {
 //void Prim_MST(WeightedGraph<T>* G, Node* root) {
 
@@ -111,7 +112,9 @@ WeightedGraph<T> Prim_MST(WeightedGraph<T>* G, Node* root) {
 
 
 // Dijkstra's
-
+// require that the weights are unsigned; not sure if that requires to specify type but lets go with int to keep things easy
+// return a map of nodes in the graph to the length of the shortest path from the given source to that node 
+std::map<Node*, unsigned int> Dijkstras(WeightedGraph<unsigned int>* G, Node* source);
 
 
 

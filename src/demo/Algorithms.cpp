@@ -146,5 +146,32 @@ Graph BFS(Graph* G, Node* start) {
 //  Dijkstra's 
 ///////////////////////////////////////////////////////////////////////
 
+//typedef std::pair<Node*, unsigned int> NodeEdgePair; // https://www.geeksforgeeks.org/prims-algorithm-using-priority_queue-stl/ had to check this out to fix my min heap ... RIP 
+
+std::map<Node*, unsigned int> Dijkstras(WeightedGraph<unsigned int>* G, Node* source) {
+	// initialize 
+	std::map<Node*, unsigned int> shortest_path_length;
+	std::map<Node*, Node*> parent;
+	std::set<Node*> s; // set of all nodes NOT checked
+	for (auto& n : (*G).get_nodes()) {
+		shortest_path_length[n] = 1e6;
+		parent[n] = nullptr;
+	}
+	shortest_path_length[source] = 0; // shortest path from the source to itself is 0 	 
+	std::priority_queue< NodeEdgePair, std::vector <NodeEdgePair>, std::greater<NodeEdgePair> > min_heap;
+	min_heap.push(std::make_pair(source, 0));
+
+	while (!min_heap.empty()) {
+		Node* u = min_heap.top().first; // extract the min 
+		min_heap.pop();
+		s.erase(u);
+		for (auto& v : (*u).get_out_neighbors()) {
+			// relax u, v, w
+		}
+	}
+
+	return shortest_path_length;
+}
+
 
 
