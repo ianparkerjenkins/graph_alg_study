@@ -255,6 +255,7 @@ int test_bfs() {
 
 
 
+// TODO : change to undirected weighted graph
 int test_prims() {
 
 	Node a = Node::Node(0.0);
@@ -267,6 +268,7 @@ int test_prims() {
 	Node h = Node::Node(7.0);
 	Node i = Node::Node(8.0);
 
+	// should be undirected 
 	WeightedGraph<int> G;
 
 	G.add_edge(&a, &b, 4);
@@ -306,8 +308,7 @@ int test_prims() {
 	G.add_edge(&i, &g, 6);
 	G.add_edge(&i, &c, 2);
 
-	Prim_MST(&G, &a);
-	//WeightedGraph<int> MST = Prim_MST(&G, &a);
+	WeightedGraph<int> MST = Prim_MST(&G, &a);
 
 	int foo = 0;
 
@@ -319,6 +320,53 @@ int test_prims() {
 	{
 		std::cout << "Prim's failed this test : " << e << std::endl;
 		return 1; 
+	}
+
+	return 0;
+}
+
+
+
+
+
+int test_dijkstras() {
+
+	Node s = Node::Node(0.0);
+	Node t = Node::Node(1.0);
+	Node x = Node::Node(2.0);
+	Node y = Node::Node(3.0);
+	Node z = Node::Node(4.0);
+	
+	WeightedGraph<unsigned int> G;
+
+	G.add_edge(&s, &y, 5);
+	G.add_edge(&s, &t, 3);
+
+	G.add_edge(&t, &y, 2);
+	G.add_edge(&t, &x, 6);
+
+	G.add_edge(&y, &t, 1);
+	G.add_edge(&y, &x, 4);
+	G.add_edge(&y, &z, 6);
+
+	G.add_edge(&x, &z, 2);
+
+	G.add_edge(&z, &s, 3);
+	G.add_edge(&z, &x, 7);
+
+
+	std::map<Node*, unsigned int> a_path_lenghts = Dijkstras(&G, &s);
+
+	int foo = 0;
+
+	try
+	{
+		if (false) { throw foo; }
+	}
+	catch (int e)
+	{
+		std::cout << "Prim's failed this test : " << e << std::endl;
+		return 1;
 	}
 
 	return 0;
@@ -426,6 +474,48 @@ void demo_bfs() {
 };
 
 
+void demo_dijkstras() {
+
+	std::cout << std::endl <<  "@@@  Dijkstra's Demo  @@@" << std::endl;
+
+
+	Node s = Node::Node(0.0);
+	Node t = Node::Node(1.0);
+	Node x = Node::Node(2.0);
+	Node y = Node::Node(3.0);
+	Node z = Node::Node(4.0);
+
+	WeightedGraph<unsigned int> G;
+
+	G.add_edge(&s, &y, 5);
+	G.add_edge(&s, &t, 3);
+
+	G.add_edge(&t, &y, 2);
+	G.add_edge(&t, &x, 6);
+
+	G.add_edge(&y, &t, 1);
+	G.add_edge(&y, &x, 4);
+	G.add_edge(&y, &z, 6);
+
+	G.add_edge(&x, &z, 2);
+
+	G.add_edge(&z, &s, 3);
+	G.add_edge(&z, &x, 7);
+
+
+	std::cout << "G's adjacency list : " << std::endl;
+	G.draw();
+
+	std::map<Node*, unsigned int> a_path_lengths = Dijkstras(&G, &s);
+
+
+	std::cout << std::endl; 
+	for (auto& n : G.get_nodes()) {
+		std::cout << s.get_val() << " --- " << a_path_lengths[n] << " ---> " << (*n).get_val() << std::endl;
+	};
+
+}
+
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -450,6 +540,7 @@ int main() {
 		test += test_dfs();
 		test += test_bfs();
 		//test += test_prims(); // TODO: fix actually forming the MST and implement a real test ... 
+		test += test_dijkstras();
 
 		if (test > 0 ) { throw test; }
 	}
@@ -461,6 +552,7 @@ int main() {
 
 	demo_dfs();
 	demo_bfs();
+	demo_dijkstras();
 	return 0;
 
 }

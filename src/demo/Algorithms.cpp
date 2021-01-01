@@ -167,8 +167,15 @@ std::map<Node*, unsigned int> Dijkstras(WeightedGraph<unsigned int>* G, Node* so
 		s.erase(u);
 		for (auto& v : (*u).get_out_neighbors()) {
 			// relax u, v, w
+			unsigned int w = G->get_edge_weight(u, v);
+			if ( shortest_path_length[v] > shortest_path_length[u] + w ) {
+				shortest_path_length[v] = shortest_path_length[u] + w;
+				parent[v] = u;
+				min_heap.push(std::make_pair(v, shortest_path_length[u] + w));
+			}
 		}
 	}
+
 
 	return shortest_path_length;
 }
